@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: BankApplication
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: ${SHOW_SQL:false}
+        use_sql_comments: ${SHOW_SQL:false}
+        highlight_sql: ${SHOW_SQL:false}
+        show_sql: ${SHOW_SQL:false}
+security:
+  secretKey: ${SECURITY_SECRET_KEY}
+  accessTokenExpirationMs: ${SECURITY_ACCESS_TOKEN_EXPIRATION}
+server:
+  port: ${BACKEND_PORT:8080}
+frontend:
+  base-url: ${FRONTEND_BASE_URI}
+
+logging:
+  file:
+    path: ./logs
+
