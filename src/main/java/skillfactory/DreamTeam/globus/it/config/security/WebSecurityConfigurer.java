@@ -1,7 +1,5 @@
 package skillfactory.DreamTeam.globus.it.config.security;
 
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.expression.method.MethodSecurityExpressionHandler;
@@ -27,7 +25,6 @@ import java.util.List;
 
 @Configuration
 @EnableMethodSecurity
-@RequiredArgsConstructor
 public class WebSecurityConfigurer {
 
     /**
@@ -39,6 +36,11 @@ public class WebSecurityConfigurer {
      * @see BankFilter
      */
     private final BankFilter bankFilter;
+
+    public WebSecurityConfigurer(UserDetailsService userDetailsService, BankFilter bankFilter) {
+        this.userDetailsService = userDetailsService;
+        this.bankFilter = bankFilter;
+    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -52,7 +54,7 @@ public class WebSecurityConfigurer {
                         .requireExplicitSave(true)
                 )
                 .authorizeHttpRequests(reqConfig -> {
-                    reqConfig.requestMatchers("/api/v1/login").permitAll();
+                    reqConfig.requestMatchers("/api/v1/auth/**").permitAll();
                     reqConfig.anyRequest().authenticated();
                 })
                 .addFilterBefore(bankFilter, UsernamePasswordAuthenticationFilter.class)
@@ -82,11 +84,6 @@ public class WebSecurityConfigurer {
         authenticationProvider.setPasswordEncoder(passwordEncoder());
         authenticationProvider.setUserDetailsService(userDetailsService);
         return authenticationProvider;
-    }
-
-    @Bean
-    public SecurityContextRepository securityContextRepository() {
-        return new RequestAttributeSecurityContextRepository();
     }
 
     @Bean

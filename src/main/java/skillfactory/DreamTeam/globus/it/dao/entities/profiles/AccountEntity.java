@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.Where;
 import skillfactory.DreamTeam.globus.it.dao.entities.GeneralEntity;
 import skillfactory.DreamTeam.globus.it.dao.entities.auth.PermissionEntity;
@@ -13,7 +14,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Builder
+@SuperBuilder
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -29,7 +30,7 @@ public class AccountEntity extends GeneralEntity {
 
     private String password;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "account")
     private UserEntity user;
 
     @Builder.Default

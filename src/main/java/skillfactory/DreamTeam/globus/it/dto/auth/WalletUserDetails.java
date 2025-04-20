@@ -20,7 +20,6 @@ public class WalletUserDetails implements UserDetails {
     private String username;
     @JsonIgnore private Set<GrantedAuthority> authorities;
 
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;

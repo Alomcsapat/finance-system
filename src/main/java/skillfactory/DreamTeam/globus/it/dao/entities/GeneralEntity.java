@@ -23,7 +23,7 @@ public class GeneralEntity {
     @Setter
     private Boolean deleted;
 
-    private final LocalDateTime createDateTime;
+    private LocalDateTime createDateTime;
 
     private LocalDateTime updateDateTime;
 
@@ -38,5 +38,33 @@ public class GeneralEntity {
         this.updateDateTime = LocalDateTime.now();
     }
 
+    // ---------------- Super Builder for super entity
 
+    protected GeneralEntity(GeneralEntityBuilder<?, ?> b) {
+        this();
+    }
+
+    public static GeneralEntityBuilder<?, ?> builder() {
+        return new GeneralEntityBuilderImpl();
+    }
+
+    public static abstract class GeneralEntityBuilder<C extends GeneralEntity, B extends GeneralEntityBuilder<C, B>> {
+
+        protected abstract B self();
+
+        public abstract C build();
+    }
+
+    private static final class GeneralEntityBuilderImpl extends GeneralEntityBuilder<GeneralEntity, GeneralEntityBuilderImpl> {
+        private GeneralEntityBuilderImpl() {
+        }
+
+        protected GeneralEntityBuilderImpl self() {
+            return this;
+        }
+
+        public GeneralEntity build() {
+            return new GeneralEntity(this);
+        }
+    }
 }

@@ -6,9 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 @Entity
-@Table(name = "companies")
 @SuperBuilder
 @NoArgsConstructor
+@Table(name = "companies")
 public class CompanyEntity extends ContactEntity {
 
     public void setName(String name) {

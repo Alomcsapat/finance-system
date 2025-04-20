@@ -6,12 +6,13 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.experimental.SuperBuilder;
 import skillfactory.DreamTeam.globus.it.constants.security.Role;
 import skillfactory.DreamTeam.globus.it.dao.entities.GeneralEntity;
 import skillfactory.DreamTeam.globus.it.dao.entities.profiles.AccountEntity;
 
 @Entity
-@Builder
+@SuperBuilder
 @Getter
 @Table(name = "permissions")
 @AllArgsConstructor

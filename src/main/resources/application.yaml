@@ -27,7 +27,7 @@ security:
 
 server:
   servlet:
-    context-path: /api/${api.version}
+    context-path: /api/v${api.version}
   port: ${BACKEND_PORT:8080}
 
 logging:
