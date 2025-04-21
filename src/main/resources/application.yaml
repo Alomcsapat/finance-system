@@ -1,3 +1,5 @@
+api:
+  version: ${API_VERSION:1}
 spring:
   application:
     name: BankApplication
@@ -5,6 +7,10 @@ spring:
     url: ${DB_URL}
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
+  flyway:
+    baseline-on-migrate: true
+    locations: classpath:db/migration
+    enabled: true
   jpa:
     properties:
       hibernate:
@@ -13,13 +19,16 @@ spring:
         use_sql_comments: ${SHOW_SQL:false}
         highlight_sql: ${SHOW_SQL:false}
         show_sql: ${SHOW_SQL:false}
+        default_schema: ${DB_SCHEMA:public}
+
 security:
   secretKey: ${SECURITY_SECRET_KEY}
   accessTokenExpirationMs: ${SECURITY_ACCESS_TOKEN_EXPIRATION}
+
 server:
+  servlet:
+    context-path: /api/v${api.version}
   port: ${BACKEND_PORT:8080}
-frontend:
-  base-url: ${FRONTEND_BASE_URI}
 
 logging:
   file:

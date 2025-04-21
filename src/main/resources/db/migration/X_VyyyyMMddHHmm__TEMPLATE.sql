@@ -1,0 +1,8 @@
+-- CREATE TABLE template
+-- (
+--     id                       BIGSERIAL PRIMARY KEY,
+--     active                   BOOLEAN DEFAULT true,
+--     deleted                  BOOLEAN DEFAULT false,
+--     create_date_time         TIMESTAMP WITHOUT TIME ZONE,
+--     update_date_time         TIMESTAMP WITHOUT TIME ZONE
+-- );
