@@ -19,11 +19,6 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "accounts")
-@NamedEntityGraph(
-        name = "user",
-        attributeNodes = @NamedAttributeNode("user")
-)
-
 public class AccountEntity extends GeneralEntity {
 
     private String login;
@@ -37,5 +32,10 @@ public class AccountEntity extends GeneralEntity {
     @Where(clause = "active = true")
     @OneToMany(mappedBy = "account", cascade = {CascadeType.PERSIST}, fetch = FetchType.EAGER)
     private Set<PermissionEntity> permissions = new HashSet<>() {{ add(new PermissionEntity()); }};
+
+    @PrePersist
+    public void normalizeLogin() {
+        this.login = login.toLowerCase().trim();
+    }
 
 }
