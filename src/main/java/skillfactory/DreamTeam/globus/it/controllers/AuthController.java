@@ -1,5 +1,6 @@
 package skillfactory.DreamTeam.globus.it.controllers;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import skillfactory.DreamTeam.globus.it.dto.auth.SignInRequest;
@@ -17,7 +18,7 @@ public class AuthController {
     private final ProfileService profileService;
 
     @PostMapping("/signIn")
-    public Token signIn(@RequestBody SignInRequest request) {
+    public Token signIn(@Valid @RequestBody SignInRequest request) {
         return authService.signIn(request);
     }
 
@@ -28,9 +29,8 @@ public class AuthController {
     }
 
     @PostMapping("/signUp")
-    public Token signUp(@RequestBody ProfileCreationRequests.CreateUser request) {
-        profileService.createUser(request);
-        return authService.signIn(new SignInRequest(request.login(), request.password()));
+    public Token signUp(@Valid @RequestBody ProfileCreationRequests.CreateUser request) {
+        return authService.signUp(request);
     }
 
 

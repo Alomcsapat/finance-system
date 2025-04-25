@@ -1,5 +1,6 @@
 package skillfactory.DreamTeam.globus.it.config.security;
 
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.expression.method.MethodSecurityExpressionHandler;
@@ -54,9 +55,17 @@ public class WebSecurityConfigurer {
                         .requireExplicitSave(true)
                 )
                 .authorizeHttpRequests(reqConfig -> {
-                    reqConfig.requestMatchers("/api/v1/auth/**").permitAll();
+                    reqConfig.requestMatchers("/auth/**").permitAll();
                     reqConfig.anyRequest().authenticated();
                 })
+                .exceptionHandling(exceptionConfig ->
+                        exceptionConfig.authenticationEntryPoint(
+                                (request, response, authException) -> {
+                                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+                                }
+
+                        )
+                )
                 .addFilterBefore(bankFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }

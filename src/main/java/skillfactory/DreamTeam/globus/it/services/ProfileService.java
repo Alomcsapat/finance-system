@@ -1,23 +1,29 @@
 package skillfactory.DreamTeam.globus.it.services;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import skillfactory.DreamTeam.globus.it.dao.entities.profiles.*;
 import skillfactory.DreamTeam.globus.it.dao.repositories.ProfileRepository;
+import skillfactory.DreamTeam.globus.it.dao.repositories.UserRepository;
 import skillfactory.DreamTeam.globus.it.dto.profile.ProfileCreationRequests;
+import skillfactory.DreamTeam.globus.it.exceptions.UserAlreadyExistsException;
 
 import java.util.Optional;
 import java.util.function.Predicate;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class ProfileService {
 
     private final ProfileRepository profileRepository;
+    private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
     public UserEntity createUser(ProfileCreationRequests.CreateUser request) {
+        assertUniqueUser(request.login());
         return profileRepository.save(
                 UserEntity.builder()
                         .name(request.name())
@@ -32,6 +38,12 @@ public class ProfileService {
                         )
                         .build()
         );
+    }
+
+    private void assertUniqueUser(String login) {
+        if (userRepository.existsByAccountLoginIgnoreCase(login)) {
+            throw new UserAlreadyExistsException("User with login " + login + " already exists");
+        }
     }
 
     public PersonEntity createPerson(ProfileCreationRequests.CreatePerson request) {

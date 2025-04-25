@@ -1,4 +1,6 @@
 package skillfactory.DreamTeam.globus.it.dto.auth;
 
-public record SignInRequest(String email, String password) {
+import jakarta.validation.constraints.NotBlank;
+
+public record SignInRequest(@NotBlank String email, @NotBlank String password) {
 }

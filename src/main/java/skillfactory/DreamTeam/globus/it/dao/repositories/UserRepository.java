@@ -3,11 +3,13 @@ package skillfactory.DreamTeam.globus.it.dao.repositories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import skillfactory.DreamTeam.globus.it.dao.entities.profiles.AccountEntity;
-
-import java.util.Optional;
+import skillfactory.DreamTeam.globus.it.dao.entities.profiles.UserEntity;
 
 @Repository
-public interface AccountRepository extends JpaRepository<AccountEntity, Long> {
+public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
-    Optional<AccountEntity> findByLoginIgnoreCase(String username);
+    boolean existsByAccountLoginIgnoreCase(String login);
+
+    UserEntity findByAccount(AccountEntity account);
+
 }
