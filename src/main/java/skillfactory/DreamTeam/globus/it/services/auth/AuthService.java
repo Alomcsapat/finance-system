@@ -1,5 +1,6 @@
 package skillfactory.DreamTeam.globus.it.services.auth;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -9,12 +10,16 @@ import org.springframework.stereotype.Service;
 import skillfactory.DreamTeam.globus.it.dto.auth.SignInRequest;
 import skillfactory.DreamTeam.globus.it.dto.auth.Token;
 import skillfactory.DreamTeam.globus.it.dto.auth.WalletUserDetails;
+import skillfactory.DreamTeam.globus.it.dto.profile.ProfileCreationRequests;
+import skillfactory.DreamTeam.globus.it.services.ProfileService;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class AuthService {
 
     private final AuthenticationProvider authenticationProvider;
+    private final ProfileService profileService;
 
     private final JwtService jwtService;
 
@@ -31,7 +36,11 @@ public class AuthService {
 
     public void logout(String accessToken) {
         jwtService.blockToken(accessToken);
-        String email = jwtService.getEmailFromJwtToken(accessToken);
+    }
+
+    public Token signUp(ProfileCreationRequests.CreateUser request) {
+        profileService.createUser(request);
+        return signIn(new SignInRequest(request.login(), request.password()));
     }
 
 }
