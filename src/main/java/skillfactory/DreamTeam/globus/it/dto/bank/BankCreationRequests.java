@@ -3,8 +3,6 @@ package skillfactory.DreamTeam.globus.it.dto.bank;
 import java.math.BigDecimal;
 
 import lombok.Builder;
-import skillfactory.DreamTeam.globus.it.dao.entities.bank.BankEntity;
-import skillfactory.DreamTeam.globus.it.dao.entities.profiles.ProfileEntity;
 
 public class BankCreationRequests {
     @Builder
@@ -14,8 +12,8 @@ public class BankCreationRequests {
 
     @Builder
     public record CreateBankAccount(
-            ProfileEntity holder,
-            BankEntity bank,
+            Long holderId,
+            Long bankId,
             BigDecimal balance,
             String accountNumber,
             String title

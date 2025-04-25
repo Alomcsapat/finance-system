@@ -2,6 +2,9 @@ package skillfactory.DreamTeam.globus.it.enums;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 public enum Status {
     NEW("New"),
     CONFIRMED("Confirmed"),
@@ -12,10 +15,6 @@ public enum Status {
     REFUNDED("Refunded");
 
     private final String value;
-
-    Status(String value) {
-        this.value = value;
-    }
 
     @JsonValue
     public String getValue() {
