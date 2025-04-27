@@ -32,7 +32,7 @@ public class BankAccountService {
     }
 
     public BankAccountEntity getAccountByHolderId(Long id) {
-        return bankAccountRepository.findByHolderId(id).orElse(null);
+        return bankAccountRepository.findByHolderId(id);
     }
 
     // public BankAccountEntity getByRecepientDate(LocalDateTime date) {

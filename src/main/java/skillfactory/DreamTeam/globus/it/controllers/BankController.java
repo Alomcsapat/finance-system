@@ -30,7 +30,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/")
+@RequestMapping("/bank")
 public class BankController {
     private final BankService bankService;
     private final BankAccountService bankAccountService;
