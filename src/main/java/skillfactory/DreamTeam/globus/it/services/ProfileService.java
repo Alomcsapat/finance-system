@@ -69,4 +69,8 @@ public class ProfileService {
                         .build()
         );
     }
+
+    public Optional<ProfileEntity> findById(Long id) {
+        return profileRepository.findById(id);
+    }
 }
