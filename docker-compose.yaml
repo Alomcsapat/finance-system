@@ -5,14 +5,14 @@ services:
     image: postgres:latest
     container_name: postgres
     environment:
-      POSTGRES_USER: пользователь
-      POSTGRES_PASSWORD: пароль
-      POSTGRES_DB: имя_базы
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: bank
       PGDATA: /var/lib/postgresql/data/volume
     ports:
       - "5432:5432"
     volumes:
-      - путь/до/вашего/volume:/var/lib/postgresql/data/volume
+      - pgdata:/var/lib/postgresql/data/volume
     restart: on-failure
     tty: true
     stdin_open: true

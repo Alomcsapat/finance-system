@@ -26,11 +26,11 @@ public class BankAccountService {
                 .build());
     }
 
-    public BankAccountEntity getAccountByHolderId(Long id) {
-        return bankAccountRepository.findByHolderId(id).orElse(null);
-    }
-
-    public BankAccountEntity getByRecepientDate(LocalDateTime date) {
-        return bankAccountRepository.findByRecepientDate(date).orElse(null);
-    }
+//    public BankAccountEntity getAccountByHolderId(Long id) {
+//        return bankAccountRepository.findByHolderId(id).orElse(null);
+//    }
+//
+//    public BankAccountEntity getByRecepientDate(LocalDateTime date) {
+//        return bankAccountRepository.findByRecepientDate(date).orElse(null);
+//    }
 }

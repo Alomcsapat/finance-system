@@ -1,6 +1,7 @@
 package skillfactory.DreamTeam.globus.it.dao.entities.operation;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;

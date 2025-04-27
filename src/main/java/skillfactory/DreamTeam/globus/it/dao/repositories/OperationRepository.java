@@ -18,5 +18,5 @@ public interface OperationRepository extends JpaRepository<OperationEntity, Long
     List<OperationEntity> findByStatus(Status status);
     List<OperationEntity> findByCategory(OperationCategoryEntity category);
     List<OperationEntity> findByAmount(BigDecimal amount);
-    List<OperationEntity> findByInn(String inn);
+    //List<OperationEntity> findByInn(String inn);
 }

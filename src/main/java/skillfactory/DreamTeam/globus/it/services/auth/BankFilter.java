@@ -43,23 +43,23 @@ public class BankFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        try {
-            String token = parseToken(request);
-            if (token != null && jwtService.validateJwtToken(token, request)) {
-                String email = jwtService.getEmailFromJwtToken(token);
-
-                UserDetails userDetails = userDetailsService.loadUserByUsername(email);
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-
-                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
-                securityContext.setAuthentication(authentication);
-                securityContextRepository.saveContext(securityContext, request, response);
-            }
-        } catch (Exception e) {
-            SecurityContextHolder.clearContext();
-            log.error("Cannot set user authentication ", e);
-        }
+//        try {
+//            String token = parseToken(request);
+//            if (token != null && jwtService.validateJwtToken(token, request)) {
+//                String email = jwtService.getEmailFromJwtToken(token);
+//
+//                UserDetails userDetails = userDetailsService.loadUserByUsername(email);
+//                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+//
+//                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+//                SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
+//                securityContext.setAuthentication(authentication);
+//                securityContextRepository.saveContext(securityContext, request, response);
+//            }
+//        } catch (Exception e) {
+//            SecurityContextHolder.clearContext();
+//            log.error("Cannot set user authentication ", e);
+//        }
 
         filterChain.doFilter(request, response);
     }

@@ -17,7 +17,9 @@ import skillfactory.DreamTeam.globus.it.dao.entities.GeneralEntity;
 @Entity
 @Table(name = "bank_accounts")
 public class BankAccountEntity extends GeneralEntity {
+    @ManyToOne
     private ProfileEntity holder;
+    @ManyToOne
     private BankEntity bank;
     private BigDecimal balance;
     private String accountNumber;
