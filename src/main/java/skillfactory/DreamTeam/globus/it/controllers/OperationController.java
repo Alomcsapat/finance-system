@@ -1,40 +1,115 @@
 package skillfactory.DreamTeam.globus.it.controllers;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-import skillfactory.DreamTeam.globus.it.dto.operation.CancelOperationRequest;
-import skillfactory.DreamTeam.globus.it.dto.operation.ConfirmOperationRequest;
-import skillfactory.DreamTeam.globus.it.dto.operation.CreateOperationRequest;
-import skillfactory.DreamTeam.globus.it.dto.operation.DeleteOperationRequest;
+import org.springframework.web.bind.annotation.*;
+import skillfactory.DreamTeam.globus.it.dto.operation.*;
+import skillfactory.DreamTeam.globus.it.enums.Status;
 import skillfactory.DreamTeam.globus.it.services.operation.OperationService;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/operations")
 public class OperationController {
     private final OperationService operationService;
 
 
-     @PostMapping("/operations/create")
-     public ResponseEntity createOperation(@RequestBody CreateOperationRequest request) {
-         return ResponseEntity.ok(operationService.createOperation(request));
+     @PostMapping("/new")
+     public OperationDTO newOperation(@RequestBody NewOperationRequest request) throws InterruptedException {
+         var operation = operationService.newOperation(request);
+         return OperationDTO.builder()
+                 .accountId(operation.getAccount().getId())
+                 .type(operation.getType())
+                 .status(operation.getStatus())
+                 .amount(operation.getAmount())
+                 .categoryTitle(operation.getCategory().getTitle())
+                 .contactId(operation.getContact().getId())
+                 .description(operation.getDescription())
+                 .build();
+
      }
 
-    @PostMapping("/operations/cancel")
-    public ResponseEntity cancelOperation(@RequestBody CancelOperationRequest request) {
-        return ResponseEntity.ok(operationService.cancelOperation(request));
+    @PutMapping("/cancel")
+    public OperationDTO cancelOperation(@RequestBody CancelOperationRequest request) {
+        var operation = operationService.cancelOperation(request);
+        return OperationDTO.builder()
+                .accountId(operation.getAccount().getId())
+                .type(operation.getType())
+                .status(operation.getStatus())
+                .amount(operation.getAmount())
+                .categoryTitle(operation.getCategory().getTitle())
+                .contactId(operation.getContact().getId())
+                .description(operation.getDescription())
+                .build();
     }
 
-    @PostMapping("/operations/сonfirm")
-    public ResponseEntity сonfirmOperation(@RequestBody ConfirmOperationRequest request) {
-        return ResponseEntity.ok(operationService.confirmOperation(request));
+    @PutMapping("/сonfirm")
+    public OperationDTO confirmOperation(@RequestBody ConfirmOperationRequest request) {
+        var operation = operationService.confirmOperation(request);
+        return OperationDTO.builder()
+                .accountId(operation.getAccount().getId())
+                .type(operation.getType())
+                .status(operation.getStatus())
+                .amount(operation.getAmount())
+                .categoryTitle(operation.getCategory().getTitle())
+                .contactId(operation.getContact().getId())
+                .description(operation.getDescription())
+                .build();
     }
 
-    @PostMapping("/operations/delete")
-    public ResponseEntity deleteOperation(@RequestBody DeleteOperationRequest request) {
-        return ResponseEntity.ok(operationService.deleteOperation(request));
+    @DeleteMapping("/delete")
+    public OperationDTO deleteOperation(@RequestBody DeleteOperationRequest request) {
+        var operation = operationService.deleteOperation(request);
+        return OperationDTO.builder()
+                .accountId(operation.getAccount().getId())
+                .type(operation.getType())
+                .status(operation.getStatus())
+                .amount(operation.getAmount())
+                .categoryTitle(operation.getCategory().getTitle())
+                .contactId(operation.getContact().getId())
+                .description(operation.getDescription())
+                .build();
+    }
+
+    @PostMapping("/processing")
+    public OperationDTO processingOperation(@RequestBody ProcessingOperationRequest request) {
+        var operation = operationService.processingOperation(request);
+        return OperationDTO.builder()
+                .accountId(operation.getAccount().getId())
+                .type(operation.getType())
+                .status(operation.getStatus())
+                .amount(operation.getAmount())
+                .categoryTitle(operation.getCategory().getTitle())
+                .contactId(operation.getContact().getId())
+                .description(operation.getDescription())
+                .build();
+    }
+
+    @PostMapping("/completed")
+    public OperationDTO completedOperation(@RequestBody CompletedOperationRequest request) {
+        var operation = operationService.completedOperation(request);
+        return OperationDTO.builder()
+                .accountId(operation.getAccount().getId())
+                .type(operation.getType())
+                .status(operation.getStatus())
+                .amount(operation.getAmount())
+                .categoryTitle(operation.getCategory().getTitle())
+                .contactId(operation.getContact().getId())
+                .description(operation.getDescription())
+                .build();
+    }
+
+    @PostMapping("/refunded")
+    public OperationDTO refundedOperation(@RequestBody RefundedOperationRequest request) {
+        var operation = operationService.refundedOperation(request);
+        return OperationDTO.builder()
+                .accountId(operation.getAccount().getId())
+                .type(operation.getType())
+                .status(operation.getStatus())
+                .amount(operation.getAmount())
+                .categoryTitle(operation.getCategory().getTitle())
+                .contactId(operation.getContact().getId())
+                .description(operation.getDescription())
+                .build();
     }
 
 }

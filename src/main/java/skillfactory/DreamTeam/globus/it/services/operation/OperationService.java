@@ -7,26 +7,25 @@ import skillfactory.DreamTeam.globus.it.dao.entities.operation.OperationCategory
 import skillfactory.DreamTeam.globus.it.dao.entities.operation.OperationEntity;
 import skillfactory.DreamTeam.globus.it.dao.entities.profiles.ProfileEntity;
 import skillfactory.DreamTeam.globus.it.dao.repositories.OperationCategoryRepository;
-import skillfactory.DreamTeam.globus.it.dao.repositories.OperationRepository;
-import skillfactory.DreamTeam.globus.it.dto.operation.CancelOperationRequest;
-import skillfactory.DreamTeam.globus.it.dto.operation.ConfirmOperationRequest;
-import skillfactory.DreamTeam.globus.it.dto.operation.CreateOperationRequest;
-import skillfactory.DreamTeam.globus.it.dto.operation.DeleteOperationRequest;
+import skillfactory.DreamTeam.globus.it.dao.repositories.OperationFilteringRepository;
+import skillfactory.DreamTeam.globus.it.dto.operation.*;
+import skillfactory.DreamTeam.globus.it.enums.Status;
 import skillfactory.DreamTeam.globus.it.services.BankAccountService;
 import skillfactory.DreamTeam.globus.it.services.ProfileService;
-import skillfactory.DreamTeam.globus.it.enums.Status;
+
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
 @AllArgsConstructor
 public class OperationService {
-    private OperationRepository operationRepository;
+    private OperationFilteringRepository operationFilteringRepository;
     private BankAccountService bankAccountService;
     private OperationCategoryRepository operationCategoryRepository;
     private ProfileService profileService;
 
-    public OperationEntity createOperation(CreateOperationRequest request) {
+
+    public OperationEntity newOperation(NewOperationRequest request) throws InterruptedException {
         BankAccountEntity bankAccount = bankAccountService.findById(request.getAccountId());
         if (bankAccount == null) {
             System.out.println("bankAccount is null");
@@ -51,30 +50,67 @@ public class OperationService {
                 .contact(profile.get())
                 .description(request.getDescription())
                 .build();
-        return operationRepository.save(operation);
+        operation.setStatus(Status.NEW);
+        operationFilteringRepository.save(operation);
+
+        Thread.sleep(1500);
+        operation.setStatus(Status.PROCESSING);
+        operationFilteringRepository.save(operation);
+
+        Thread.sleep(3000);
+        if (Math.random() >= 0.1d) {
+            operation.setStatus(Status.CONFIRMED);
+        } else {
+            operation.setStatus(Status.CANCELLED);
+        }
+        return operationFilteringRepository.save(operation);
     }
 
     public OperationEntity cancelOperation(CancelOperationRequest request) {
-        OperationEntity operation = operationRepository.findById(request.getOperationId())
+        OperationEntity operation = operationFilteringRepository.findById(request.getOperationId())
                 .orElseThrow(() -> new NoSuchElementException("Operation not found with id: " + request.getOperationId()));
         operation.setStatus(Status.CANCELLED);
-        operationRepository.save(operation);
+        operationFilteringRepository.save(operation);
         return operation;
     }
 
     public OperationEntity confirmOperation (ConfirmOperationRequest request) {
-        OperationEntity operation = operationRepository.findById(request.getOperationId())
+        OperationEntity operation = operationFilteringRepository.findById(request.getOperationId())
                 .orElseThrow(() -> new NoSuchElementException("Operation not found with id: " + request.getOperationId()));
         operation.setStatus(Status.CONFIRMED);
-        operationRepository.save(operation);
+        operationFilteringRepository.save(operation);
         return operation;
     }
 
     public OperationEntity deleteOperation (DeleteOperationRequest request) {
-        OperationEntity operation = operationRepository.findById(request.getOperationId())
+        OperationEntity operation = operationFilteringRepository.findById(request.getOperationId())
                 .orElseThrow(() -> new NoSuchElementException("Operation not found with id: " + request.getOperationId()));
         operation.setStatus(Status.DELETED);
-        operationRepository.save(operation);
+        operationFilteringRepository.save(operation);
+        return operation;
+    }
+
+    public OperationEntity processingOperation (ProcessingOperationRequest request) {
+        OperationEntity operation = operationFilteringRepository.findById(request.getOperationId())
+                .orElseThrow(() -> new NoSuchElementException("Operation not found with id: " + request.getOperationId()));
+        operation.setStatus(Status.PROCESSING);
+        operationFilteringRepository.save(operation);
+        return operation;
+    }
+
+    public OperationEntity completedOperation (CompletedOperationRequest request) {
+        OperationEntity operation = operationFilteringRepository.findById(request.getOperationId())
+                .orElseThrow(() -> new NoSuchElementException("Operation not found with id: " + request.getOperationId()));
+        operation.setStatus(Status.COMPLETED);
+        operationFilteringRepository.save(operation);
+        return operation;
+    }
+
+    public OperationEntity refundedOperation (RefundedOperationRequest request) {
+        OperationEntity operation = operationFilteringRepository.findById(request.getOperationId())
+                .orElseThrow(() -> new NoSuchElementException("Operation not found with id: " + request.getOperationId()));
+        operation.setStatus(Status.REFUNDED);
+        operationFilteringRepository.save(operation);
         return operation;
     }
 

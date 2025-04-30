@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateOperationRequest {
+public class NewOperationRequest {
     private Long  accountId;
     private OperationType type;
     private Status status;

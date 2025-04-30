@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Repository
-public interface OperationRepository extends JpaRepository<OperationEntity, Long> {
+public interface OperationFilteringRepository extends JpaRepository<OperationEntity, Long> {
     List<OperationEntity> findByType(OperationType type);
     List<OperationEntity> findByStatus(Status status);
     List<OperationEntity> findByCategory(OperationCategoryEntity category);

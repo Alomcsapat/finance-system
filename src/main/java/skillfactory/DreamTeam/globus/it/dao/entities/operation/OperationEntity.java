@@ -5,10 +5,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.springframework.boot.actuate.endpoint.OperationType;
 import skillfactory.DreamTeam.globus.it.dao.entities.GeneralEntity;
@@ -18,7 +15,7 @@ import skillfactory.DreamTeam.globus.it.enums.Status;
 
 import java.math.BigDecimal;
 
-@Getter
+@Data
 @Entity
 @SuperBuilder
 @AllArgsConstructor
@@ -28,13 +25,11 @@ public class OperationEntity extends GeneralEntity {
     @ManyToOne
     private BankAccountEntity account;
 
-    @Setter
     private OperationType type;
 
-    @Setter
+    @Enumerated(EnumType.STRING)
     private Status status;
 
-    @Setter
     private BigDecimal amount;
 
     @ManyToOne
@@ -43,7 +38,6 @@ public class OperationEntity extends GeneralEntity {
     @ManyToOne
     private ProfileEntity contact;
 
-    @Setter
     private String description;
 
 }
