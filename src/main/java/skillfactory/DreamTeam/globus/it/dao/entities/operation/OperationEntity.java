@@ -7,10 +7,10 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-import org.springframework.boot.actuate.endpoint.OperationType;
 import skillfactory.DreamTeam.globus.it.dao.entities.GeneralEntity;
 import skillfactory.DreamTeam.globus.it.dao.entities.bank.BankAccountEntity;
 import skillfactory.DreamTeam.globus.it.dao.entities.profiles.ProfileEntity;
+import skillfactory.DreamTeam.globus.it.enums.OperationType;
 import skillfactory.DreamTeam.globus.it.enums.Status;
 
 import java.math.BigDecimal;
@@ -25,6 +25,7 @@ public class OperationEntity extends GeneralEntity {
     @ManyToOne
     private BankAccountEntity account;
 
+    @Enumerated(EnumType.STRING)
     private OperationType type;
 
     @Enumerated(EnumType.STRING)

@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.boot.actuate.endpoint.OperationType;
+import skillfactory.DreamTeam.globus.it.enums.OperationType;
 import skillfactory.DreamTeam.globus.it.enums.Status;
 
 import java.math.BigDecimal;
