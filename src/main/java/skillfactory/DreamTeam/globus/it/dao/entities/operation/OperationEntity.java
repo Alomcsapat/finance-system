@@ -15,7 +15,8 @@ import skillfactory.DreamTeam.globus.it.enums.Status;
 
 import java.math.BigDecimal;
 
-@Data
+@Getter
+@Setter
 @Entity
 @SuperBuilder
 @AllArgsConstructor

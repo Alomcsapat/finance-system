@@ -110,8 +110,8 @@ public class OperationController {
 
 
      @PostMapping("/new")
-     public OperationDTO newOperation(@RequestBody NewOperationRequest request) throws InterruptedException {
-         var operation = operationService.newOperation(request);
+     public OperationDTO newOperation(@RequestBody CreateOperationRequest request) throws InterruptedException {
+         var operation = operationService.createOperation(request);
          return OperationDTO.builder()
                  .accountId(operation.getAccount().getId())
                  .type(operation.getType())

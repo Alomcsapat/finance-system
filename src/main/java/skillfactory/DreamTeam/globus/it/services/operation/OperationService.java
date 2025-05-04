@@ -9,7 +9,6 @@ import skillfactory.DreamTeam.globus.it.dao.entities.operation.OperationEntity;
 import skillfactory.DreamTeam.globus.it.dao.entities.profiles.ProfileEntity;
 import skillfactory.DreamTeam.globus.it.dao.repositories.OperationCategoryRepository;
 import skillfactory.DreamTeam.globus.it.dao.repositories.OperationRepository;
-import skillfactory.DreamTeam.globus.it.dao.repositories.OperationRepositoryImpl;
 import skillfactory.DreamTeam.globus.it.dto.operation.*;
 import skillfactory.DreamTeam.globus.it.enums.Status;
 import skillfactory.DreamTeam.globus.it.services.BankAccountService;
@@ -25,16 +24,15 @@ public class OperationService {
     @Autowired
 
     private OperationRepository operationRepository;
-    private OperationRepositoryImpl operationFilterRepository;
     private BankAccountService bankAccountService;
     private OperationCategoryRepository operationCategoryRepository;
     private ProfileService profileService;
 
     public List<OperationEntity> operations(OperationQueryParams filters){
-        return operationFilterRepository.findByFilter(filters);
+        return operationRepository.findByFilter(filters);
     }
 
-    public OperationEntity newOperation(NewOperationRequest request) throws InterruptedException {
+    public OperationEntity createOperation(CreateOperationRequest request) throws InterruptedException {
         BankAccountEntity bankAccount = bankAccountService.findById(request.getAccountId());
         if (bankAccount == null) {
             System.out.println("bankAccount is null");

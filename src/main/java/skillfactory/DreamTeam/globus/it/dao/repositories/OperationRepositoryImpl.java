@@ -25,7 +25,7 @@ public class OperationRepositoryImpl implements OperationFilteringRepository {
         }
 
         if (filter.getAccountId() != null) {
-            jpql.append(" AND o.account = :account");
+            jpql.append(" AND o.account.id = :account");
         }
 
         if (filter.getCreateDateTime() != null) {
