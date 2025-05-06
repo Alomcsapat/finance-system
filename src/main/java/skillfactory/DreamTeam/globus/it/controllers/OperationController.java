@@ -78,7 +78,7 @@ public class OperationController {
 
             if (amountMax != null && !amountMax.isEmpty()) {
                 var operationAmount = new BigDecimal(amountMax);
-                filters.setAmountMin(operationAmount);
+                filters.setAmountMax(operationAmount);
             }
 
             if (categoryId != null && !categoryId.isEmpty()) {
