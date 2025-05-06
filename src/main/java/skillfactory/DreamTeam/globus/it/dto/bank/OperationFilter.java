@@ -4,10 +4,10 @@ import java.io.ObjectInputFilter.Status;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import org.springframework.boot.actuate.endpoint.OperationType;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
+import skillfactory.DreamTeam.globus.it.enums.OperationType;
 
 @Data
 public class OperationFilter {
