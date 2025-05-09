@@ -77,22 +77,22 @@ public class BankController {
                 .build();
     }
 
-    // @PostMapping("/operations")
+    // @PostMapping("/getPageByFilter")
     // public ResponseEntity<OperationDTO> createOperation(@RequestBody OperationCreationRequest request) {
     //     return ResponseEntity.ok(operationService.createOperation(request));
     // }
 
-    // @PutMapping("/operations/{id}")
+    // @PutMapping("/getPageByFilter/{id}")
     // public ResponseEntity<OperationDTO> updateOperation(@PathVariable Long id, @RequestBody OperationUpdateRequest request) {
     //     return ResponseEntity.ok(operationService.updateOperation(id, request));
     // }
 
-    // @GetMapping("/operations")
+    // @GetMapping("/getPageByFilter")
     // public ResponseEntity<List<OperationDTO>> getAllOperations(@ModelAttribute OperationFilter filter) {
     //     return ResponseEntity.ok(operationService.getAllOperations(filter));
     // }
 
-    // @GetMapping("/operations/export")
+    // @GetMapping("/getPageByFilter/export")
     // public ResponseEntity<Resource> exportOperationsToPdf(@ModelAttribute OperationFilter filter) {
     //     return ResponseEntity.ok(operationService.exportOperationsToPdf(filter));
     // }

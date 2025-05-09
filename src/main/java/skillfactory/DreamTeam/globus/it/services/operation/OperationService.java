@@ -1,7 +1,6 @@
 package skillfactory.DreamTeam.globus.it.services.operation;
 
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import skillfactory.DreamTeam.globus.it.dao.entities.bank.BankAccountEntity;
 import skillfactory.DreamTeam.globus.it.dao.entities.operation.OperationCategoryEntity;
@@ -19,16 +18,19 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class OperationService {
-    @Autowired
 
-    private OperationRepository operationRepository;
-    private BankAccountService bankAccountService;
-    private OperationCategoryRepository operationCategoryRepository;
-    private ProfileService profileService;
+    private final OperationRepository operationRepository;
+    private final BankAccountService bankAccountService;
+    private final OperationCategoryRepository operationCategoryRepository;
+    private final ProfileService profileService;
 
-    public List<OperationEntity> operations(OperationQueryParams filters){
+    public List<OperationEntity> getPageByFilter(OperationFilter filters){
+        return operationRepository.findByFilter(filters);
+    }
+
+    public List<OperationEntity> getAllByFilter(OperationFilter filters){
         return operationRepository.findByFilter(filters);
     }
 

@@ -21,7 +21,7 @@ import java.math.BigDecimal;
 @SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "operations")
+@Table(name = "getPageByFilter")
 public class OperationEntity extends GeneralEntity {
     @ManyToOne
     private BankAccountEntity account;

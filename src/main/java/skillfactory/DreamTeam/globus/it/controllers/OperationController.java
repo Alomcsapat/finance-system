@@ -1,5 +1,6 @@
 package skillfactory.DreamTeam.globus.it.controllers;
 
+import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import skillfactory.DreamTeam.globus.it.dao.entities.operation.OperationEntity;
@@ -20,7 +21,7 @@ import java.util.stream.Collectors;
 public class OperationController {
     private final OperationService operationService;
 
-    @GetMapping("")
+    @GetMapping
     public List<OperationDTO> operations(
             @RequestParam(required = false) String type,
             @RequestParam(required = false) String accountId,
@@ -31,9 +32,14 @@ public class OperationController {
             @RequestParam(required = false) String inn,
             @RequestParam(required = false) String amountMin,
             @RequestParam(required = false) String amountMax,
-            @RequestParam(required = false) String categoryId
+            @RequestParam(required = false) String categoryId,
+            @Min(0) @RequestParam(required = false, defaultValue = "0") Integer page,
+            @Min(1) @RequestParam(required = false, defaultValue = "20") Integer size
     ) {
-        var filters = new OperationQueryParams();
+        var filters = OperationFilter.builder()
+                .page(page)
+                .size(size)
+                .build();
         try {
             if (type != null && !type.isEmpty()) {
                 var operationType = OperationType.valueOf(type.toUpperCase());
@@ -89,7 +95,7 @@ public class OperationController {
                 return null;
         }
 
-        List<OperationEntity> operations = operationService.operations(filters);
+        List<OperationEntity> operations = operationService.getPageByFilter(filters);
         return operations.stream()
                 .map(operation -> OperationDTO.builder()
                         .accountId(operation.getAccount().getId())
