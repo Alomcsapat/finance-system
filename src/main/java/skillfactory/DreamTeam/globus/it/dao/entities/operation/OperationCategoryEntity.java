@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import skillfactory.DreamTeam.globus.it.dao.entities.GeneralEntity;
-import skillfactory.DreamTeam.globus.it.dao.entities.profiles.ProfileEntity;
 
 @Getter
 @Entity
@@ -16,11 +15,6 @@ import skillfactory.DreamTeam.globus.it.dao.entities.profiles.ProfileEntity;
 @NoArgsConstructor
 @Table(name = "categories")
 public class OperationCategoryEntity extends GeneralEntity {
-
-    @ManyToOne
-    private ProfileEntity profile;
-
     @Setter
     private String title;
-
 }

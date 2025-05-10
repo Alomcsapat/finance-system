@@ -8,4 +8,5 @@ import skillfactory.DreamTeam.globus.it.dao.entities.operation.OperationCategory
 
 @Repository
 public interface OperationCategoryRepository  extends JpaRepository<OperationCategoryEntity, Long> {
+    public OperationCategoryEntity findByTitle(String name);
 }

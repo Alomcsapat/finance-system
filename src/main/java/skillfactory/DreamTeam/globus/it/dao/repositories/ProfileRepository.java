@@ -6,5 +6,5 @@ import skillfactory.DreamTeam.globus.it.dao.entities.profiles.ProfileEntity;
 
 @Repository
 public interface ProfileRepository extends JpaRepository<ProfileEntity, Long> {
-
+    ProfileEntity findByName(String name);
 }

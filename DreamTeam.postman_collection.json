@@ -1,0 +1,282 @@
+{
+	"info": {
+		"_postman_id": "b55195e4-bca9-40bf-ae37-1bcb69b04624",
+		"name": "DreamTeam",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28817835"
+	},
+	"item": [
+		{
+			"name": "SignUp",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Ivan\",\r\n    \"inn\": \"12345678923\",\r\n    \"email\": \"zalupa@mail.ru\",\r\n    \"phone\": \"123-235-895-78\",\r\n    \"login\": \"bobr_kurva\",\r\n    \"password\": \"zalupa404\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/v1/auth/signUp",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"signUp"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "signIn",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"bobr_kurva\",\r\n    \"password\": \"zalupa404\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/v1/auth/signIn",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"signIn"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJib2JyX2t1cnZhIiwiaWF0IjoxNzQ1NTgyNTk1LCJleHAiOjE3NDU1ODYxOTV9.WR6RmKUjlgWUGHSDyu5JXradk1PI1rXkpQogLtcyOPk",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "127.0.0.1:8080/api/v1/auth/logout",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TestController",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJib2JyX2t1cnZhIiwiaWF0IjoxNzQ1NTgzMTA1LCJleHAiOjE3NDU1ODY3MDV9.Gd3AhvNlMPDsVXgsPVOG3SJE-YwPUDAjZgm-Eu7efJA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJib2JyX2t1cnZhIiwiaWF0IjoxNzQ1NTgzMTA1LCJleHAiOjE3NDU1ODY3MDV9.Gd3AhvNlMPDsVXgsPVOG3SJE-YwPUDAjZgm-Eu7efJA",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "127.0.0.1:8080/api/v1/test",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateBank",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJib2JyX2t1cnZhIiwiaWF0IjoxNzQ1NTgzMTA1LCJleHAiOjE3NDU1ODY3MDV9.Gd3AhvNlMPDsVXgsPVOG3SJE-YwPUDAjZgm-Eu7efJA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"GovnoBank\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/v1/bank/new",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"bank",
+						"new"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateBankAccounts",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJib2JyX2t1cnZhIiwiaWF0IjoxNzQ1NTgzMTA1LCJleHAiOjE3NDU1ODY3MDV9.Gd3AhvNlMPDsVXgsPVOG3SJE-YwPUDAjZgm-Eu7efJA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"holderId\": 7,\r\n    \"bankId\": 11,\r\n    \"balance\": 0,\r\n    \"accountNumber\": \"789-00000004568-99\",\r\n    \"title\": \"test_acc\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/v1/bank/account/new",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"bank",
+						"account",
+						"new"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAccount",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJib2JyX2t1cnZhIiwiaWF0IjoxNzQ1NTkwNTYyLCJleHAiOjE3NDU1OTQxNjJ9.gK9LtdgzzVZqxb7dPM-rqryFXvabQNTc90FiVi0odyU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8080/api/v1/bank/account/6",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"bank",
+						"account",
+						"6"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -16,10 +16,12 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class CreateOperationRequest {
     private Long  accountId;
+    private String bankName;
+    private String accountNumber;
     private OperationType type;
     private Status status;
     private BigDecimal amount;
-    private Long  categoryId;
+    private String  categoryTitle;
     private Long  contactId;
     private String description;
 }

@@ -73,4 +73,8 @@ public class ProfileService {
     public Optional<ProfileEntity> findById(Long id) {
         return profileRepository.findById(id);
     }
+
+    public ProfileEntity findUserByLogin(String login) {
+        return profileRepository.findByName(login);
+    }
 }
