@@ -92,6 +92,7 @@ public class OperationController {
         List<OperationEntity> operations = operationService.operations(filters);
         return operations.stream()
                 .map(operation -> OperationDTO.builder()
+                        .id(operation.getId())
                         .accountId(operation.getAccount().getId())
                         .type(operation.getType())
                         .createDateTime(operation.getCreateDateTime())
@@ -113,6 +114,7 @@ public class OperationController {
      public OperationDTO newOperation(@RequestBody CreateOperationRequest request) throws InterruptedException {
          var operation = operationService.createOperation(request);
          return OperationDTO.builder()
+                 .id(operation.getId())
                  .accountId(operation.getAccount().getId())
                  .type(operation.getType())
                  .createDateTime(operation.getCreateDateTime())
@@ -132,6 +134,7 @@ public class OperationController {
     public OperationDTO cancelOperation(@RequestBody CancelOperationRequest request) {
         var operation = operationService.cancelOperation(request);
         return OperationDTO.builder()
+                .id(operation.getId())
                 .accountId(operation.getAccount().getId())
                 .type(operation.getType())
                 .createDateTime(operation.getCreateDateTime())
@@ -146,10 +149,11 @@ public class OperationController {
                 .build();
     }
 
-    @PutMapping("/сonfirm")
+    @PutMapping("/confirm")
     public OperationDTO confirmOperation(@RequestBody ConfirmOperationRequest request) {
         var operation = operationService.confirmOperation(request);
         return OperationDTO.builder()
+                .id(operation.getId())
                 .accountId(operation.getAccount().getId())
                 .type(operation.getType())
                 .createDateTime(operation.getCreateDateTime())
@@ -168,6 +172,7 @@ public class OperationController {
     public OperationDTO deleteOperation(@RequestBody DeleteOperationRequest request) {
         var operation = operationService.deleteOperation(request);
         return OperationDTO.builder()
+                .id(operation.getId())
                 .accountId(operation.getAccount().getId())
                 .type(operation.getType())
                 .createDateTime(operation.getCreateDateTime())
@@ -186,6 +191,7 @@ public class OperationController {
     public OperationDTO processingOperation(@RequestBody ProcessingOperationRequest request) {
         var operation = operationService.processingOperation(request);
         return OperationDTO.builder()
+                .id(operation.getId())
                 .accountId(operation.getAccount().getId())
                 .type(operation.getType())
                 .createDateTime(operation.getCreateDateTime())
@@ -204,6 +210,7 @@ public class OperationController {
     public OperationDTO completedOperation(@RequestBody CompletedOperationRequest request) {
         var operation = operationService.completedOperation(request);
         return OperationDTO.builder()
+                .id(operation.getId())
                 .accountId(operation.getAccount().getId())
                 .type(operation.getType())
                 .createDateTime(operation.getCreateDateTime())
@@ -222,6 +229,7 @@ public class OperationController {
     public OperationDTO refundedOperation(@RequestBody RefundedOperationRequest request) {
         var operation = operationService.refundedOperation(request);
         return OperationDTO.builder()
+                .id(operation.getId())
                 .accountId(operation.getAccount().getId())
                 .type(operation.getType())
                 .createDateTime(operation.getCreateDateTime())

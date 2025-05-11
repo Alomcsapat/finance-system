@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @Data
 @Builder
 public class OperationDTO {
+    private final Long id;
     private final Long accountId;
     private final OperationType type;
     private LocalDateTime createDateTime;
