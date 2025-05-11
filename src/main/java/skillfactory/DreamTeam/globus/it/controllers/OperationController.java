@@ -2,6 +2,7 @@ package skillfactory.DreamTeam.globus.it.controllers;
 
 import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import skillfactory.DreamTeam.globus.it.dao.entities.operation.OperationEntity;
 import skillfactory.DreamTeam.globus.it.dto.auth.WalletUserDetails;
@@ -119,8 +120,8 @@ public class OperationController {
 
 
      @PostMapping("/new")
-     public OperationDTO newOperation(@RequestBody CreateOperationRequest request, Principal principal) throws InterruptedException {
-         var operation = operationService.createOperation(request, (WalletUserDetails) principal);
+     public OperationDTO newOperation(@RequestBody CreateOperationRequest request, Authentication authentication) throws InterruptedException {
+         var operation = operationService.createOperation(request, (WalletUserDetails) authentication.getPrincipal());
          return OperationDTO.builder()
                  .id(operation.getId())
                  .accountId(operation.getAccount().getId())
