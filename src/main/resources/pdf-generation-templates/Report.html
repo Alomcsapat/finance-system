@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+  <h3 th:text="${'Holder name: ' + holderName}"></h3>
+  <h5 th:text="${'Holder inn: ' + holderInn}"></h5>
+</div>
+<table>
+  <thead>
+    <tr>
+      <th>Contact type</th>
+      <th>Operation type</th>
+      <th>Date</th>
+      <th>Description</th>
+      <th>Amount</th>
+      <th>Status</th>
+      <th>Send bank</th>
+      <th>Recipient bank</th>
+      <th>Send bank account</th>
+      <th>Recipient bank account</th>
+      <th>Inn</th>
+      <th>Category</th>
+      <th>Recipient number</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr th:each="item : ${items}">
+      <td th:text="${item.contactType.getTitle()}"></td>
+      <td th:text="${item.getType().getValue()}"></td>
+      <td th:text="${item.getCreateDateTime()}"></td>
+      <td th:text="${item.description}"></td>
+      <td th:text="${item.amount}"></td>
+      <td th:text="${item.status}"></td>
+      <td th:text="${item.sendBank}"></td>
+      <td th:text="${item.recipientBank}"></td>
+      <td th:text="${item.sendBankAccount}"></td>
+      <td th:text="${item.recipientBankAccount}"></td>
+      <td th:text="${item.inn}"></td>
+      <td th:text="${item.category}"></td>
+      <td th:text="${item.recipientNumber}"></td>
+  </tbody>
+</table>
+</body>
+</html>

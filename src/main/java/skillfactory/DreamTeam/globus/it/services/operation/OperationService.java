@@ -1,15 +1,10 @@
 package skillfactory.DreamTeam.globus.it.services.operation;
 
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
-import org.springframework.security.core.context.SecurityContextHolder;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import skillfactory.DreamTeam.globus.it.dao.entities.bank.BankAccountEntity;
-import skillfactory.DreamTeam.globus.it.dao.entities.bank.BankEntity;
 import skillfactory.DreamTeam.globus.it.dao.entities.operation.OperationCategoryEntity;
 import skillfactory.DreamTeam.globus.it.dao.entities.operation.OperationEntity;
-import skillfactory.DreamTeam.globus.it.dao.entities.profiles.AccountEntity;
 import skillfactory.DreamTeam.globus.it.dao.entities.profiles.ProfileEntity;
 import skillfactory.DreamTeam.globus.it.dao.repositories.OperationCategoryRepository;
 import skillfactory.DreamTeam.globus.it.dao.repositories.OperationRepository;
@@ -22,38 +17,37 @@ import skillfactory.DreamTeam.globus.it.services.BankService;
 import skillfactory.DreamTeam.globus.it.services.OperationCategoryService;
 import skillfactory.DreamTeam.globus.it.services.ProfileService;
 import skillfactory.DreamTeam.globus.it.services.auth.AuthService;
-import org.springframework.security.core.Authentication;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class OperationService {
-    @Autowired
 
-    AuthService authService;
-    private BankService bankService;
-    private OperationRepository operationRepository;
-    private BankAccountService bankAccountService;
-    private OperationCategoryRepository operationCategoryRepository;
-    private ProfileService profileService;
-    private OperationCategoryService operationCategoryService;
+    private final AuthService authService;
+    private final BankService bankService;
+    private final OperationRepository operationRepository;
+    private final BankAccountService bankAccountService;
+    private final OperationCategoryRepository operationCategoryRepository;
+    private final ProfileService profileService;
+    private final OperationCategoryService operationCategoryService;
 
-    public List<OperationEntity> operations(OperationQueryParams filters){
+    public List<OperationEntity> getPageByFilter(OperationFilter filters){
         return operationRepository.findByFilter(filters);
     }
 
-    public OperationEntity createOperation(CreateOperationRequest request) throws InterruptedException {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        WalletUserDetails userDetails = (WalletUserDetails) authentication.getPrincipal();
-        
+    public List<OperationEntity> getAllByFilter(OperationFilter filters){
+        return operationRepository.getAllByFilter(filters);
+    }
+
+    public OperationEntity createOperation(CreateOperationRequest request, WalletUserDetails userDetails) throws InterruptedException {
         BankAccountEntity bankAccount = bankAccountService.findById(request.getAccountId());
-        
+
         if (bankAccount == null) {
             var bank = bankService.createBank(new BankCreationRequests.CreateBank(request.getBankName()));
-            bankAccount = bankAccountService.createAccount(new BankCreationRequests.CreateBankAccount(userDetails.getUserId(), 
+            bankAccount = bankAccountService.createAccount(new BankCreationRequests.CreateBankAccount(userDetails.getUserId(),
             bank.getId(), request.getAmount(), request.getAccountNumber(), ""));
         }
 

@@ -5,7 +5,7 @@ import jakarta.persistence.TypedQuery;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import skillfactory.DreamTeam.globus.it.dao.entities.operation.OperationEntity;
-import skillfactory.DreamTeam.globus.it.dto.operation.OperationQueryParams;
+import skillfactory.DreamTeam.globus.it.dto.operation.OperationFilter;
 
 import java.util.List;
 
@@ -17,7 +17,24 @@ public class OperationRepositoryImpl implements OperationFilteringRepository {
 
 
     @Override
-    public List<OperationEntity> findByFilter(OperationQueryParams filter) {
+    public List<OperationEntity> findByFilter(OperationFilter filter) {
+
+        TypedQuery<OperationEntity> query = buildQuery(filter);
+
+        int pageNumber = filter.getPage();
+        int pageSize = filter.getSize();
+        query.setFirstResult(pageNumber * pageSize);
+        query.setMaxResults(pageSize);
+
+        return query.getResultList();
+    }
+
+    @Override
+    public List<OperationEntity> getAllByFilter(OperationFilter filter) {
+        return buildQuery(filter).getResultList();
+    }
+
+    private TypedQuery<OperationEntity> buildQuery(OperationFilter filter) {
         StringBuilder jpql = new StringBuilder("SELECT o FROM OperationEntity o JOIN o.contact c WHERE 1=1");
 
         if (filter.getType() != null) {
@@ -100,12 +117,6 @@ public class OperationRepositoryImpl implements OperationFilteringRepository {
         if (filter.getCategoryId() != null) {
             query.setParameter("category", categoryRepository.getReferenceById(filter.getCategoryId()));
         }
-
-        int pageNumber = 0;
-        int pageSize = 20;
-        query.setFirstResult(pageNumber * pageSize);
-        query.setMaxResults(pageSize);
-
-        return query.getResultList();
+        return query;
     }
 }
