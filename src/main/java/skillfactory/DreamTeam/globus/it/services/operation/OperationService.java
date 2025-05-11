@@ -62,7 +62,7 @@ public class OperationService {
             operationCategory = operationCategoryService.createOperationCategory(new CreateCategoryRequest(request.getCategoryTitle()));
         }
 
-        Optional<ProfileEntity> profile = profileService.findById(request.getContactId());
+        Optional<ProfileEntity> profile = profileService.findById(userDetails.getUserId());
         if (profile.isEmpty()) {
             System.out.println("profile is null");
         }
