@@ -39,7 +39,7 @@ public class OperationService {
     }
 
     public List<OperationEntity> getAllByFilter(OperationFilter filters){
-        return operationRepository.findByFilter(filters);
+        return operationRepository.getAllByFilter(filters);
     }
 
     public OperationEntity createOperation(CreateOperationRequest request, WalletUserDetails userDetails) throws InterruptedException {

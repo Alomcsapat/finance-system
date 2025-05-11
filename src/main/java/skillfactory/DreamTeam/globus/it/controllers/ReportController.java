@@ -5,6 +5,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import skillfactory.DreamTeam.globus.it.dto.auth.WalletUserDetails;
 import skillfactory.DreamTeam.globus.it.dto.operation.OperationFilter;
@@ -37,7 +38,7 @@ public class ReportController {
             @RequestParam(required = false) BigDecimal amountMin,
             @RequestParam(required = false) BigDecimal amountMax,
             @RequestParam(required = false) Long categoryId,
-            Principal principal
+            Authentication authentication
     ) {
         byte[] file = reportService.generate(OperationFilter.builder()
                 .type(type)
@@ -50,7 +51,7 @@ public class ReportController {
                 .amountMin(amountMin)
                 .amountMax(amountMax)
                 .categoryId(categoryId)
-                .build(), (WalletUserDetails) principal);
+                .build(), (WalletUserDetails) authentication.getPrincipal());
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_PDF);
         String encodedFilename = URLEncoder.encode("Report", StandardCharsets.UTF_8).replace("+", "%20");

@@ -3,10 +3,10 @@ package skillfactory.DreamTeam.globus.it.services.auth;
 import io.jsonwebtoken.*;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.codec.Base64;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.spec.SecretKeySpec;
@@ -15,6 +15,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import static io.jsonwebtoken.SignatureAlgorithm.HS256;
 import static io.jsonwebtoken.SignatureAlgorithm.HS512;
 
 @Slf4j
@@ -33,7 +34,7 @@ public class JwtService {
 
     private Key getSigningKey() {
         if (signingKey == null) {
-            byte[] apiKeySecretBytes = Base64.encodeBase64(secretKey.getBytes(), false);
+            byte[] apiKeySecretBytes = Base64.encode(secretKey.getBytes());
             this.signingKey = new SecretKeySpec(apiKeySecretBytes, HS512.getJcaName());
         }
         return signingKey;
