@@ -58,14 +58,6 @@ public class WebSecurityConfigurer {
                     reqConfig.requestMatchers("/auth/**").permitAll();
                     reqConfig.anyRequest().authenticated();
                 })
-                .exceptionHandling(exceptionConfig ->
-                        exceptionConfig.authenticationEntryPoint(
-                                (request, response, authException) -> {
-                                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
-                                }
-
-                        )
-                )
                 .addFilterBefore(bankFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
