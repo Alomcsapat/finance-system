@@ -4,12 +4,14 @@ import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import skillfactory.DreamTeam.globus.it.dao.entities.operation.OperationEntity;
+import skillfactory.DreamTeam.globus.it.dto.auth.WalletUserDetails;
 import skillfactory.DreamTeam.globus.it.dto.operation.*;
 import skillfactory.DreamTeam.globus.it.enums.OperationType;
 import skillfactory.DreamTeam.globus.it.enums.Status;
 import skillfactory.DreamTeam.globus.it.services.operation.OperationService;
 
 import java.math.BigDecimal;
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -117,8 +119,8 @@ public class OperationController {
 
 
      @PostMapping("/new")
-     public OperationDTO newOperation(@RequestBody CreateOperationRequest request) throws InterruptedException {
-         var operation = operationService.createOperation(request);
+     public OperationDTO newOperation(@RequestBody CreateOperationRequest request, Principal principal) throws InterruptedException {
+         var operation = operationService.createOperation(request, (WalletUserDetails) principal);
          return OperationDTO.builder()
                  .id(operation.getId())
                  .accountId(operation.getAccount().getId())
